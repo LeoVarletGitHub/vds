@@ -3,6 +3,7 @@
 class Profil
 {
     /**
+     * Retourne le login et l'email
      * @param string $nom Nom du membre
      * @param string $prenom PRénom du membre
      * @return array|bool
@@ -29,7 +30,12 @@ EOD;
         }
     }
 
-    public static function getMembreByLogin(string $login): array | bool
+    /**
+     * Retourne l'id, le login, le nom, le prenom et le mot de passe de l'utilisateur à partir de son login
+     * @param string $login
+     * @return array|bool
+     */
+    public static function getMembreByLogin(string $login): array|bool
     {
         $sql = <<<EOD
             SELECT id, login, nom, prenom, password
@@ -51,8 +57,12 @@ EOD;
     }
 
 
-
-    public static function getMembreById(string $id ): array | bool
+    /**
+     * Retourne le nom, le prenom, l'email, le telephone, la photo et l'autorisation de partager l'email
+     * @param string $id
+     * @return array|bool
+     */
+    public static function getMembreById(string $id): array|bool
     {
         $db = Database::getInstance();
         $sql = <<<EOD
@@ -69,14 +79,18 @@ EOD;
             return $ligne;
 
         } catch (Exception $e) {
-
-            $erreur = "Erreur innattendue, nous recherchons une solution au problème";
             return false;
         }
     }
 
-
-    public static function getLesMembres() : array {
+    /**
+     * Retourne le nom, le prenom, la concaténation nom prenom, l'email ou non communiqué si autMail = false
+     * téléphone ou non renseignée si telephone = NULL
+     * Photo ou non renseignée si photo = NULL
+     * @return array
+     */
+    public static function getLesMembres(): array
+    {
         $db = Database::getInstance();
         $sql = <<<EOD
             Select nom, prenom, concat(nom, ' ', prenom) as nomPrenom,   
@@ -92,8 +106,17 @@ EOD;
         return $lesLignes;
     }
 
+    /**
+     * Modifie la valeur 'une colonne (telephone, photo)' d'un enregistrement de la table membre
+     * @param string $colonne
+     * @param string $valeur
+     * @param int $id
+     * @param string $erreur
+     * @return bool
+     */
 
-    public static function modifierColonne(string $colonne, string $valeur, int $id, string &$erreur) : bool {
+    public static function modifierColonne(string $colonne, string $valeur, int $id, string &$erreur): bool
+    {
         $db = Database::getInstance();
         $ok = true;
         $erreur = "";
@@ -113,6 +136,7 @@ EOD;
         }
         return $ok;
     }
+
 
     public static function effacerColonne(string $colonne, int $id, string &$erreur) : bool {
         $db = Database::getInstance();
