@@ -1,7 +1,8 @@
 use
 vds;
 drop trigger if exists avantAjoutCourse;
-
+drop trigger if exists apresSuppressionResultat;
+drop trigger if exists apresAjoutResultat;
 delimiter
 $$
 create trigger avantAjoutCourse
@@ -11,12 +12,30 @@ create trigger avantAjoutCourse
 begin
     if exists (select 1 from course where date = new.date AND saison = new.saison AND distance = new.distance) then
   SIGNAL sqlstate '45000' set message_text = 'Cette course existe déjà';
-
 end if;
 
 if
 new.nbParticipant != 0 then
-   SIGNAL sqlstate '45000' set message_text = 'Le champ nbParticipant doit être mis a 0 à l''ajout';
+   set new.nbParticipant = 0;
 end if;
+
 end
+$$
+
+create trigger apresAjoutResultat
+    after insert
+    on resultat
+    for each row
+    update course
+    set nbParticipant = nbParticipant + 1
+    where course.id = new.idCourse;
+$$
+
+create trigger apresSuppressionResultat
+    after delete
+    on resultat
+    for each row
+    update course
+    set nbParticipant = nbParticipant - 1
+    where course.id = old.idCourse;
 $$
