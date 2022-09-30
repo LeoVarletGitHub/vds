@@ -1,4 +1,5 @@
 <?php
+
 require '../include/initialisation.php';
 $titreFonction = "Course";
 require '../include/head.php';
@@ -8,7 +9,19 @@ require '../include/head.php';
       href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css"/>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/jquery.easy-autocomplete.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/easy-autocomplete.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/easy-autocomplete.themes.min.css">
+
 <div id="msg" class="m-3"></div>
+<div class="col-12 col-sm-6 boite">
+    <input id="nomR" type="text" class="form-control recherche"
+           placeholder="Date, Saison et/ou distance"
+           pattern="^[0-9a-zA-Z -]+$"
+           autocomplete="off"
+    >
+</div>
 <div class='table-responsive mt-1'>
     <table id='leTableau' class='table table-sm table-borderless tablesorter-bootstrap'
            style="font-size: 0.8rem">

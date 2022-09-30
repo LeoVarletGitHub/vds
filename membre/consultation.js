@@ -18,7 +18,9 @@ function init() {
     $.ajax({
         url: 'ajax/getlesmembres.php',
         dataType: 'json',
-       error: reponse => { msg.innerHTML = Std.genererMessage(reponse.responseText)},
+        error: reponse => {
+            msg.innerHTML = Std.genererMessage(reponse.responseText)
+        },
         success: function (data) {
             for (const membre of data) {
                 let tr = lesLignes.insertRow();

@@ -26,7 +26,7 @@ ErrorDocument 404 /erreur/404.php
 # Au niveau 400, les codes de statut HTTP commencent à poser problème. Il s’agit de codes d’erreur indiquant qu’il y a un problème avec votre navigateur et/ou votre requête.
 
 # 400 : « Bad Request ». Le serveur ne peut pas renvoyer de réponse en raison d’une erreur du côté du client. Voir notre guide pour la résolution de cette erreur.
-# 401 : « Unauthorized » ou « Authorization Required ». Il est renvoyé par le serveur lorsque la ressource cible ne possède pas de justificatifs d’authentification valides. Vous pouvez le constater si vous avez mis en place une authentification HTTP de base en utilisant htpasswd.
+# 401 : « Unauthorized » ou « Authorization Required ». Il est renvoyé par le serveur lorsque la ressource cible ne possède pas de justificatifs d’authentification valides. Vous pouvez le constater si vous avez mis en place une authentification HTTP de base en utilisant .htpasswd.
 # Erreur 401 d’autorisation Nginx nécessaire dans Chrome
 # Erreur 401 d’autorisation Nginx nécessaire dans Chrome
 # 402 : « Payment required » À l’origine, ce code a été créé pour être utilisé dans le cadre d’un système de caisse numérique. Cependant, ce plan n’a jamais abouti. Il est plutôt utilisé par diverses plateformes pour indiquer qu’une requête ne peut être satisfaite, généralement en raison d’un manque de fonds nécessaires. Parmi les exemples les plus courants, on peut citer

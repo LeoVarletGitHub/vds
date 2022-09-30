@@ -6,11 +6,10 @@ class resultat
     {
         $db = Database::getInstance();
         $sql = <<<EOD
-            Select place, temps, (select distance from course where id = idCourse) / (select sum(Left(temps, 2) + substring(temps, 4,2) * 60 + substring(temps, 7,2)) 
-                                                                                      from resultat where id = idCourse) * 3600), 
-                                                    (select concat(nom, ' ' , prenom) from coureur where id = idCoureur) as nomPrenom
+            Select place, temps, (select distance from course where id=idCourse) as distance, (select concat(nom, ' ' , prenom) from coureur where id = idCoureur) as nomPrenom, categorie, placeCategorie, club, (select date)
             From resultat
-            Order by place;
+            where idCourse = (select id from course where ) 
+            Order by idCourse and place;
 EOD;
         $curseur = $db->query($sql);
         $lesLignes = $curseur->fetchAll(PDO::FETCH_ASSOC);
