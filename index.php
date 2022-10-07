@@ -93,6 +93,20 @@ require RACINE . '/include/head.php';
                data-bs-content="Calendrier, horaires et autres informations à connaitre">
             </i>
         </a>
+        <a class="btn btn-sm btn-outline-dark m-2 shadow-sm " href="/resultat/resultatc.php">
+            Résultats
+            <i class="bi bi-info-circle text-info"
+               data-bs-toggle="popover"
+               data-bs-content="Résultats des courses">
+            </i>
+        </a>
+        <a class="btn btn-sm btn-outline-dark m-2 shadow-sm " href="/resultat/resultati.php">
+            Coureurs
+            <i class="bi bi-info-circle text-info"
+               data-bs-toggle="popover"
+               data-bs-content="Résultats des coureurs">
+            </i>
+        </a>
     </div>
 </div>
 
