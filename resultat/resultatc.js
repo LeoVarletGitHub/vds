@@ -1,5 +1,5 @@
 "use strict";
-
+let lesCourses;
 window.onload = init;
 
 function init() {
@@ -14,9 +14,9 @@ function init() {
     // paramétrage du composant
     let option = {
         // source de la zone d'autocomplétion
-        url: "ajax/getlesresultats.php",
+        url: "ajax/getlesCourses.php",
         // valeur alimentant la zone d'auto-complétion
-        getValue: "date",
+        getValue: "nomCourse",
         list: {
             match: {
                 // activate du filtre sur la zone
@@ -27,15 +27,11 @@ function init() {
             // sur la sélection d'un nom dans la liste
             onChooseEvent: function () {
                 // récupération du numéro de licence pour le nom sélectionné
-
-                $.ajax({
-                    url: "ajax/getlesresultats.php",
-                    type: 'post',
-                    data: {valeur: nomR.value},
-                    dataType: "json",
-                    success: afficher,
-                    error: (reponse) => Std.afficherErreur(reponse.responseText)
-                });
+                clearTable();
+                let laCourse = $nomR.getSelectedItemData();
+                nomR.value = laCourse.nomCourse;
+                // lancer la récupération des résultats de cette course
+                getLesResultats(laCourse.id);
             },
             // à chaque fois que l'utilisateur saisit un caractère
             onLoadEvent: () => {
@@ -57,36 +53,77 @@ function init() {
     $nomR.easyAutocomplete(option);
     nomR.focus();
 
+    idCategorie.onchange = afficher;
+    sexe.onchange = afficher;
+
+    $.ajax({
+        url: 'ajax/getlesdonnees.php',
+        type: 'POST',
+        dataType: "json",
+        error: response => console.error(response.responseText),
+        success: remplirLesDonnees
+    });
 }
 
-function getLesCourses() {
+function remplirLesDonnees(data) {
+    for (const categorie of data)
+        idCategorie.appendChild(new Option(categorie.categorie, categorie.categorie))
+}
+
+function getLesResultats(id) {
+
     lesLignes.innerHTML = '';
     $.ajax({
         url: "ajax/getlesresultats.php",
         type: 'post',
-        data: {valeur: nomR.value},
+        data: {idCourse: id},
         dataType: "json",
-        success: afficher,
-        error: (reponse) => Std.afficherErreur(reponse.responseText)
+        success: (data) => {
+            lesCourses = data;
+            afficher();
+        },
+        error: reponse => msg.innerHTML = Std.afficherErreur(reponse.responseText)
     });
 
 }
 
-function afficher(data) {
-    let tr = lesLignes.insertRow();
+function afficher() {
+    lesLignes.innerHTML = '';
+    for (const resultat of lesCourses) {
+        if (resultat.sexe !== sexe.value && sexe.value !== '*') continue;
+        if (resultat.categorie !== idCategorie.value && idCategorie.value !== '*') continue;
 
+        let tr = lesLignes.insertRow();
 
-    tr.insertCell().innerText = data.place;
-    tr.insertCell().innerText = data.temps;
-    tr.insertCell().innerText = data.distance;
-    tr.insertCell().innerText = null;
-    tr.insertCell().innerText = data.nomPrenom;
-    tr.insertCell().innerText = data.categorie;
-    tr.insertCell().innerText = data.placeCategorie;
-    tr.insertCell().innerText = data.club;
+        tr.insertCell().innerText = resultat.place;
+        tr.insertCell().innerText = resultat.temps;
 
+        let d = resultat.distance === '10 Km' ? 10 : 5;
+        let heure = Number(resultat.temps.substr(0, 2));
+        let seconde = Number(resultat.temps.substr(6, 2));
+        let minute = Number(resultat.temps.substr(3, 2));
+        let tempsEnSeconde = heure * 3600 + minute * 60 + seconde;
+        let vitesse = 3600 * (d) / tempsEnSeconde;
+        tr.insertCell().innerText = vitesse.toFixed(2);
+
+        let allure = Math.floor(tempsEnSeconde / d);
+
+        let mn = Math.floor(allure / 60);
+        let se = allure - mn * 60;
+        let seT = '0' + se;
+
+        tr.insertCell().innerText = mn.toString() + ':' + seT.slice(-2);
+        tr.insertCell().innerText = resultat.nomPrenom;
+        tr.insertCell().innerText = resultat.categorie;
+        tr.insertCell().innerText = resultat.placeCategorie;
+        tr.insertCell().innerText = resultat.club;
+    }
     $("#leTableau").trigger('update');
 
     pied.style.visibility = 'visible';
+}
+
+function clearTable() {
+    $("#leTableau tbody").empty();
 }
 

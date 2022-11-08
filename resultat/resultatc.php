@@ -22,6 +22,18 @@ require '../include/head.php';
            autocomplete="off"
     >
 </div>
+<div class="col-auto">
+    <select class="form-select input-sm " id='sexe'>
+        <option value="*">Homme et Femme</option>
+        <option value="M">Homme</option>
+        <option value="F">Femme</option>
+    </select>
+</div>
+<div class="col-auto">
+    <select class="form-select input-sm" id='idCategorie'>
+        <option value="*">Toutes les catégories</option>
+    </select>
+</div>
 <div class='table-responsive mt-1'>
     <table id='leTableau' class='table table-sm table-borderless tablesorter-bootstrap'
            style="font-size: 0.8rem">

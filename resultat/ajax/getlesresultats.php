@@ -1,8 +1,8 @@
 <?php
 /**
- * Fournit la liste des resultats de courses
+ * Fournit la liste des resultats des courses
  * Appel : resultat/resultatc.js
- * Résultat :liste des resultats de courses au format json
+ * Résultat :liste des resultats des courses au format json
  */
 
 require '../../include/initialisation.php';
