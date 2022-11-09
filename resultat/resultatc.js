@@ -33,19 +33,6 @@ function init() {
                 // lancer la récupération des résultats de cette course
                 getLesResultats(laCourse.id);
             },
-            // à chaque fois que l'utilisateur saisit un caractère
-            onLoadEvent: () => {
-                let lesValeurs = $nomR.getItems();
-                let nb = lesValeurs.length;
-                if (nb === 1) {
-                    afficher(lesValeurs[0]);
-                    nomR.blur();
-                } else if (nb === 0) {
-                    nomR.blur();
-                    Std.afficherErreur("aucune course correspondante");
-                }
-
-            }
         },
         theme: "round"
     }

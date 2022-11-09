@@ -82,4 +82,18 @@ EOD;
         $curseur->closeCursor();
         return $lesLignes;
     }
+
+    public static function Coursesnonparticipant(): array
+    {
+        $db = Database::getInstance();
+        $sql = <<<EOD
+    SELECT date, saison, distance
+    FROM course
+    where nbParticipant = 0;
+EOD;
+        $curseur = $db->query($sql);
+        $lesLignes = $curseur->fetchAll(PDO::FETCH_ASSOC);
+        $curseur->closeCursor();
+        return $lesLignes;
+    }
 }
