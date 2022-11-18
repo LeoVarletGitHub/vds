@@ -13,22 +13,30 @@ require '../include/head.php';
                 <a>Ajout d'une course</a>
             </div>
             <div class="card-body">
-                <input id="date" type="text" class="form-control recherche"
-                       placeholder="Date"
+                <input id="date" type="text" class="form-control ctrl"
+                       placeholder="Date format : YYYY-MM-DD"
                        pattern="^[0-9 -]+$"
                        autocomplete="off"
                 >
+                <div class='messageErreur'></div>
 
-                <select class="form-select input-sm" id='saison'>
+                <select class="form-select input-sm ctrl " id='saison'>
                 </select>
+                <div class='messageErreur'></div>
 
-                <select class="form-select input-sm " id='distance'>
-                    <option value="5km">5 km</option>
-                    <option value="10km">10 km</option>
+                <select class="form-select input-sm ctrl " id='distance'>
+                    <option value="5 Km">5 km</option>
+                    <option value="10 Km">10 km</option>
                 </select>
+                <div class='messageErreur'></div>
+
+                <div class="text-center">
+                    <button id='btnAjouter' class="btn btn btn-danger">Ajouter</button>
+                </div>
             </div>
         </div>
     </div>
+    <
     <div class='table-responsive mt-1'>
         <table id='leTableau' class='table table-sm table-borderless tablesorter-bootstrap'
                style="font-size: 0.8rem">

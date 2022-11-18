@@ -71,6 +71,7 @@ function init() {
                     messageNomPrenom.innerText = "Aucun nom ne correspond";
                     id = null;
                 }
+                id = null;
             }
         }
     }
@@ -149,12 +150,17 @@ function ajouterAdministrateur() {
             success: function () {
                 // ajout dans la zone de liste
                 idMembre.add(new Option(nomPrenom.value, id));
-                // effacement des données
+
+                // fermeture de la fenêtre modale
+                $("#frmAjout").modal("hide");
+
+                Std.confirmerSucces(nomPrenom.value + " fait maintenant partie des administrateurs. il vous reste à selectionner les modules qu'il peut gérer");
+                decocherCase();
+                idMembre.value = id;
+                idMembre.nom = $nomPrenom;
                 $nomPrenom.val('');
                 id = null;
-                // fermeture de la fenêtre modale
-                $("#frmAjout").modal("hide")
-                Std.afficherSucces('Administrateur ajouté');
+
 
             },
             error: reponse => msgFrmAjout.innerHTML = Std.genererMessage(reponse.responseText),

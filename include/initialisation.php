@@ -4,7 +4,12 @@
  *  Mise en place de l'accès aux ressources
  * Appel depuis tous les scripts sauf ceux concernant la personnalisation du mot de passe.
  */
+session_start();
 
+// contrôle prioritaire : utilisateur doit personnaliser son mot de passe
+if (isset($_SESSION['personnaliser'])) {
+    header('location:/profil/personnalisationpassword.php');
+}
 // Définition de la constante RACINE pour permettre un accès aux ressources par un adressage absolu
 define('RACINE', $_SERVER['DOCUMENT_ROOT']);
 
@@ -19,4 +24,3 @@ spl_autoload_register(function ($name) {
 
 
 // Accès aux variables de session
-session_start();

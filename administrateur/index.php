@@ -20,9 +20,11 @@ require RACINE . '/include/head.php';
 <div class="row">
     <div class="col-12 col-sm-10 col-md-8 col-lg-6">
         <div class="input-group mb-3 col-6">
-            <label class="input-group-text" for="idMmebre">Administrateur</label>
+            <label class="input-group-text" for="idMembre">Administrateur</label>
             <select class="form-select" id="idMembre"></select>
-            <button id="btnSupprimerAdministrateur" class="btn btn-danger" title="Supprimer l'administrateur sélectionné">Supprimer</button>
+            <button id="btnSupprimerAdministrateur" class="btn btn-danger"
+                    title="Supprimer l'administrateur sélectionné">Supprimer
+            </button>
             <a button id='ajoutAdministrateur' class="btn btn-success "
                data-bs-toggle="modal"
                data-bs-target="#frmAjout"

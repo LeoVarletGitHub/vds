@@ -96,4 +96,44 @@ EOD;
         $curseur->closeCursor();
         return $lesLignes;
     }
+
+    public static function Ajouter(string $date, string $saison, string $distance): bool
+    {
+        $ok = false;
+        $sql = <<<EOD
+            Select date, saison, distance
+            From course
+            Where year(date) = year(:date) and saison = :saison and distance = :distance;
+EOD;
+        $db = Database::getInstance();
+        $curseur = $db->prepare($sql);
+        $curseur->bindParam('date', $date);
+        $curseur->bindParam('saison', $saison);
+        $curseur->bindParam('distance', $distance);
+        $curseur->execute();
+        $ligne = $curseur->fetch();
+        $curseur->closeCursor();
+        if ($ligne)
+            $reponse = "Cet course existe déjà";
+        else {
+            $sql = <<<EOD
+        insert into course(date, saison, distance)
+        values (:date, :saison, :distance);
+EOD;
+
+            $curseur = $db->prepare($sql);
+            $curseur->bindParam('date', $date);
+            $curseur->bindParam('saison', $saison);
+            $curseur->bindParam('distance', $distance);
+            try {
+                $curseur->execute();
+                $curseur->closeCursor();
+                $ok = true;
+            } catch (Exception $e) {
+                $reponse = substr($e->getMessage(), strrpos($e->getMessage(), '#') + 1);
+            }
+        }
+        return $ok;
+    }
 }
+
