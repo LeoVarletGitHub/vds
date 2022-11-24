@@ -87,7 +87,7 @@ EOD;
     {
         $db = Database::getInstance();
         $sql = <<<EOD
-    SELECT date, saison, distance
+    SELECT id, date, saison, distance
     FROM course
     where nbParticipant = 0;
 EOD;
@@ -135,5 +135,24 @@ EOD;
         }
         return $ok;
     }
+
+    public static function supprimer(int $id)
+    {
+        $db = Database::getInstance();
+        $sql = <<<EOD
+    delete from course
+    where id = :id and nbParticipant = 0;
+EOD;
+        $curseur = $db->prepare($sql);
+        $curseur->bindParam('id', $id);
+        try {
+            $curseur->execute();
+            $curseur->closeCursor();
+            echo 1;
+        } catch (Exception $e) {
+            echo substr($e->getMessage(), strrpos($e->getMessage(), '#') + 1);
+        }
+    }
 }
+
 

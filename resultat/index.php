@@ -7,23 +7,24 @@ require '../include/head.php';
 <script src="index.js"></script>
 <div id="msg" class="m-3"></div>
 <div class='row'>
-    <div class="col-md-6 col-md-offset-3 text-center">
+    <div class="col-md-4 col-md-offset-3 text-center">
         <div class="card">
             <div class="card-header">
                 <a>Ajout d'une course</a>
             </div>
             <div class="card-body">
+                <label for="date"> Date :</label>
                 <input id="date" type="text" class="form-control ctrl"
                        placeholder="Date format : YYYY-MM-DD"
                        pattern="^[0-9 -]+$"
                        autocomplete="off"
                 >
                 <div class='messageErreur'></div>
-
+                <label for="saison"> Saison :</label>
                 <select class="form-select input-sm ctrl " id='saison'>
                 </select>
                 <div class='messageErreur'></div>
-
+                <label for="distance"> Distance :</label>
                 <select class="form-select input-sm ctrl " id='distance'>
                     <option value="5 Km">5 km</option>
                     <option value="10 Km">10 km</option>

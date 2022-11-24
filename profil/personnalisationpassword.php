@@ -7,9 +7,11 @@
 session_start();
 define('RACINE', $_SERVER['DOCUMENT_ROOT']);
 require RACINE . '/include/head.php';
+
+
 $titreFonction = "Personnaliser son mot de passe";
 ?>
-<script src="personnalisationpassword.js"></script>
+<script src="personnalisationpassword.js?v=1"></script>
 <div id="msg" class="m-3"></div>
 <div class="card mt-5 col-sm-6" style="margin:auto">
     <div class="card-body ">
