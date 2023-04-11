@@ -8,10 +8,12 @@
  */
 
 
-
 // la variable $titreFonction doit être créée si elle n'existe pas
 if (!isset($titreFonction))
-    $titreFonction = "";
+    $titreFonction = $_SERVER['PHP_SELF'];
+
+// Comptabilisation de la fonction demandée
+Std::majStatistique($titreFonction);
 
 // personnalisation de l'entête de page : bouton Se connecter ou Se déconnecter
 $barre = "<a class='btn btn-sm btn-danger m-2 shadow-sm' href='/profil/connexion.php'>Se connecter</a>";
@@ -50,6 +52,7 @@ EOD;
     <script src="/composant/std.js"></script>
 
 </head>
+<body>
 <div class="container-fluid d-flex flex-column p-0 h-100">
     <div style="background-color: #00469c" class="d-flex justify-content-between align-items-center">
         <a href="/index.php" title="Revenir sur la page d'accueil">
@@ -67,7 +70,7 @@ EOD;
            class="btn btn-outline-secondary"
            title='Revenir à la page prècédente'
            data-bs-toggle='tooltip'
-           date-bs-placement='left'>
+           data-bs-placement='left'>
             <i class="bi bi-caret-left"></i>
         </a>
         <a href="/index.php" class="btn btn-outline-secondary ">
@@ -75,7 +78,7 @@ EOD;
                class="btn btn-outline-secondary"
                title="Revenir sur la page d'accueil"
                data-bs-toggle="tooltip"
-               date-bs-placement='left'></i>
+               data-bs-placement='left'></i>
         </a>
     </div>
     <main id="main" class="flex-grow-1 mx-3 ">

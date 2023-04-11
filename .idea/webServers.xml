@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="aedc6ec6-de15-443b-8bd9-ccd789ebe340" name="vds" url="http://vds">
+        <fileTransfer mountedRoot="J:\vds" accessType="MOUNT" port="0" />
+      </webServer>
+      <webServer id="4f50503d-24f1-46a3-8347-43724c3b9023" name="alwaysdata" url="http://leovarlet.alwaysdata.net/">
+        <fileTransfer rootFolder="/home/leovarlet" accessType="SFTP" host="ssh-leovarlet.alwaysdata.net" port="22" sshConfigId="5cbe12f5-63e1-48f2-8e90-dba102fe1c29" sshConfig="leovarlet@ssh-leovarlet.alwaysdata.net:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="a1f378b9-8b88-40a3-a6a9-9e78246f7800" name="vds2" url="http://localhost">
+        <fileTransfer mountedRoot="C:\wamp64\www\vds" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -40,7 +40,7 @@ function init() {
     $nomR.easyAutocomplete(option);
     nomR.focus();
 
-
+    pied.style.visibility = 'visible';
 }
 
 function getLesCoureurs(id) {
@@ -66,9 +66,9 @@ function getLesCoureurs(id) {
             tr.insertCell().innerText = coureur.temps;
 
             let d = coureur.distance === '10 Km' ? 10 : 5;
-            let heure = Number(coureur.temps.substr(0, 2));
-            let seconde = Number(coureur.temps.substr(6, 2));
-            let minute = Number(coureur.temps.substr(3, 2));
+            let heure = Number(coureur.temps.substring(0, 2));
+            let seconde = Number(coureur.temps.substring(6, 9));
+            let minute = Number(coureur.temps.substring(3, 6));
             let tempsEnSeconde = heure * 3600 + minute * 60 + seconde;
             let vitesse = 3600 * (d) / tempsEnSeconde;
             tr.insertCell().innerText = vitesse.toFixed(2);
@@ -86,7 +86,6 @@ function getLesCoureurs(id) {
         }
         $("#leTableau").trigger('update');
 
-        pied.style.visibility = 'visible';
     }
 
 function clearTable() {

@@ -30,6 +30,37 @@ EOD;
         }
     }
 
+    public static function getNbTentative(string $login, string $ip): int
+    {
+        $sql = <<<EOD
+        select count(*) from tentative
+        where (login = :login or ip = :ip)
+        and date > now() - interval 10 minute;
+EOD;
+        $db = Database::getInstance();
+        $curseur = $db->prepare($sql);
+        $curseur->bindParam('login', $login);
+        $curseur->bindParam('ip', $ip);
+        $curseur->execute();
+        $valeur = $curseur->fetchColumn();
+        $curseur->closeCursor();
+        return $valeur;
+    }
+
+    public static function enregistrerTentative(string $login, string $password, string $ip): void
+    {
+        $sql = <<<EOD
+            insert into tentative(login, password, ip)
+            values (:login, :password, :ip)
+EOD;
+        $db = Database::getInstance();
+        $curseur = $db->prepare($sql);
+        $curseur->bindParam('login', $login);
+        $curseur->bindParam('password', $password);
+        $curseur->bindParam('ip', $ip);
+        $curseur->execute();
+    }
+
     /**
      * Retourne l'id, le login, le nom, le prenom et le mot de passe de l'utilisateur à partir de son login
      * @param string $login

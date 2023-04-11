@@ -4,6 +4,11 @@
  */
 
 require 'include/initialisation.php';
+if (!isset($_SESSION['visite'])) {
+    Std::comptabiliserVisite();
+    $_SESSION['visite'] = 1;
+}
+
 /*
 Si la variable de session membre n'existe pas mais que le cookie 'seSouvenir' existe
 on récupère la valuer du cookie
@@ -32,6 +37,9 @@ EOD;
         $_SESSION['membre']['id'] = $ligne['id'];
         $_SESSION['membre']['login'] = $ligne['login'];
         $_SESSION['membre']['nomPrenom'] = $ligne['prenom'] . ' ' . $ligne['nom'];
+        // Enregistrer la connexion
+        Std::enregistrerConnexion($ligne['id']);
+        Std::tracerDemande('connexion', $_SESSION['membre']['nomPrenom']);
 
         $option['expires'] = time() + 3600 * 24 * 7;
         $option['path'] = '/';
@@ -119,6 +127,12 @@ require RACINE . '/include/head.php';
 
         <a class="btn btn-sm btn-outline-dark m-2 shadow-sm " href="/page/formation.php">
             Formation
+        </a>
+        <a class="btn btn-sm btn-outline-dark m-2 shadow-sm " href="/agenda/consultation.php">
+            Agenda
+        </a>
+        <a class="btn btn-sm btn-outline-dark m-2 shadow-sm " href="/calendrier/calendrier.php">
+            Calendrier
         </a>
         <div class="marquee-rtl">
             <div id='detailBandeau' class=" article fst-italic"></div>

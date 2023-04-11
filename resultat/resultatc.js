@@ -50,6 +50,8 @@ function init() {
         error: response => console.error(response.responseText),
         success: remplirLesDonnees
     });
+
+    pied.style.visibility = 'visible';
 }
 
 function remplirLesDonnees(data) {
@@ -86,9 +88,9 @@ function afficher() {
         tr.insertCell().innerText = resultat.temps;
 
         let d = resultat.distance === '10 Km' ? 10 : 5;
-        let heure = Number(resultat.temps.substr(0, 2));
-        let seconde = Number(resultat.temps.substr(6, 2));
-        let minute = Number(resultat.temps.substr(3, 2));
+        let heure = Number(resultat.temps.substring(0, 2));
+        let seconde = Number(resultat.temps.substring(6, 9));
+        let minute = Number(resultat.temps.substring(3, 6));
         let tempsEnSeconde = heure * 3600 + minute * 60 + seconde;
         let vitesse = 3600 * (d) / tempsEnSeconde;
         tr.insertCell().innerText = vitesse.toFixed(2);
@@ -107,7 +109,7 @@ function afficher() {
     }
     $("#leTableau").trigger('update');
 
-    pied.style.visibility = 'visible';
+
 }
 
 function clearTable() {
